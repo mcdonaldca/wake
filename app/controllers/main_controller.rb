@@ -99,11 +99,71 @@ class MainController < ApplicationController
 	end
 
 	def make_sound
-		 #curl -X POST https://api.twilio.com/2010-04-01/Accounts/AC77847336a48c6aa58c4f1c0e7cbf67ae/Calls.json \
-   #-u AC77847336a48c6aa58c4f1c0e7cbf67ae:846b1a6d20f408b88b3a4d78a8604431 \
-   #--data-urlencode "From=+19899410565" \
-   #--data-urlencode "To=+19894883855" \
-   #--data-urlencode 'Url=http%3A%2F%2Ftwimlets.com%2Fecho%3FTwiml%3D%253CResponse%253E%253CSay%253EThis%2Bis%2Ba%2Btest%2521%253C%252FSay%253E%253C%252FResponse%253E'
+
+		require 'rubygems' # not necessary with ruby 1.9 but included for completeness 
+		require 'twilio-ruby' 
+		 
+		# put your own credentials here 
+		account_sid = 'AC77847336a48c6aa58c4f1c0e7cbf67ae' 
+		auth_token = '846b1a6d20f408b88b3a4d78a8604431' 
+		 
+		# set up a client to talk to the Twilio REST API 
+		@client = Twilio::REST::Client.new account_sid, auth_token 
+		 
+		@client.account.calls.create({
+			:to => '+19894883855', 
+			:from => '+19899410565', 
+			:url => 'http://wake-treehacks.herokuapp.com/phone_answered',  
+			:method => 'POST',  
+			:fallback_method => 'GET',  
+			:status_callback_method => 'GET',    
+			:record => 'false'
+		})
+		 
 	end
+
+	def handle_television
+
+		start = get_offset()
+		Rails.logger.info "it's now #{Time.now}"
+
+		job_id =
+      Rufus::Scheduler.singleton.in '1s' do
+      	finish = get_offset()
+        Rails.logger.info "time flies, it's now #{Time.now}"
+
+        if start < finish
+		    	response = Net::HTTP.get_response(URI("http://10.19.188.238:8080/remote/processKey?key=pause"))
+		    end
+      end
+
+	end
+
+	def phone_answered 
+		user = User.find 0
+		if not user.sleep = 1
+			user.sleep = 0
+			user.save()
+		end
+	end
+
+	def get_offset
+
+		response = Net::HTTP.get_response(URI("http://10.19.188.238:8080/tv/getTuned")).body
+		offset = JSON.parse(response)["offset"]
+
+		return offset.to_i
+
+	end
+
+	def test
+
+    job_id =
+      Rufus::Scheduler.singleton.in '5s' do
+        Rails.logger.info "time flies, it's now #{Time.now}"
+      end
+
+    render :text => "scheduled job #{job_id}"
+  end
 
 end

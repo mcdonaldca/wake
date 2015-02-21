@@ -7,6 +7,10 @@ Rails.application.routes.draw do
   get 'dashboard' => 'main#dashboard', :as => 'dashboard'
   get 'sleep_watch' => 'main#sleep_watch', :as => 'sleep_watch'
 
+  get 'handle_television' => 'main#handle_television', :as => 'handle_television'
+  get 'make_sound' => 'main#make_sound', :as => 'make_sound'
+  get 'phone_answered' => 'main#phone_answered', :as => 'phone_answered'
+
   get 'asleep' => 'main#asleep', :as => 'asleep'
   get 'reset' => 'main#reset', :as => 'reset'
   get 'pebble_nod' => 'main#pebble_nod', :as => 'pebble_nod'
