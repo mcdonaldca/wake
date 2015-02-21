@@ -2,7 +2,11 @@ Rails.application.routes.draw do
 
 
   root 'main#index'
-  get  'select' => 'main#select', :as => 'select'
+  get 'select' => 'main#select', :as => 'select'
+  get 'identity/:name' => 'main#identity', :as => 'identity'
+  get 'dashboard' => 'main#dashboard', :as => 'dashboard'
+
+  get 'asleep' => 'main#asleep', :as => 'asleep'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

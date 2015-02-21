@@ -26,7 +26,9 @@
 		<div id="core">
 			<header>
 				<div class="logo-wake">
-					<%= image_tag "logo_wake.png" %>
+					<%= link_to dashboard_url do %>
+						<%= image_tag "logo_wake.png" %>
+					<% end %>
 				</div>
 				<nav>
 		 			<ul class="mobile">
@@ -42,9 +44,11 @@
 		<div id="push"></div>
 	</div>
 	
-	<footer style="display:none" id="graphic">
-		<%= image_tag @graphic_name %>
-	</footer>
+	<% if @graphic %>
+		<footer style="display:none" id="graphic">
+			<%= image_tag @graphic_name %>
+		</footer>
+	<% end %>
 	<footer id="empty">
 	</footer>
 
