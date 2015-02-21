@@ -7,68 +7,66 @@
 
   @include border-radius(50%);
 
-  -webkit-animation: neon1 1.5s ease-in-out infinite alternate;
-  -moz-animation: neon1 1.5s ease-in-out infinite alternate;
-  animation: neon1 1.5s ease-in-out infinite alternate; 
+  
   
 }
 
-@-webkit-keyframes neon1 {
+.light.red {
+
+
+  -webkit-animation: red_glow 1.5s ease-in-out infinite alternate;
+  -moz-animation: red_glow 1.5s ease-in-out infinite alternate;
+  animation: red_glow 1.5s ease-in-out infinite alternate; 
+}
+
+@-webkit-keyframes red_glow {
   from {
     box-shadow: 0 0 3px #fff,
                0 0 5px  #fff,
                0 0 8px  #fff,
-               0 0 11px  #FF1177,
-               0 0 15px  #FF1177;
+               0 0 11px  $pink,
+               0 0 15px  $pink;
   }
   to {
     box-shadow: 0 0 1px #fff,
                0 0 3px #fff,
                0 0 5px #fff,
-               0 0 8px #FF1177,
-               0 0 11px #FF1177;
+               0 0 8px $pink,
+               0 0 11px $pink;
   }
 }
 
-/*@-moz-keyframes neon1 {
+@-moz-keyframes neon1 {
   from {
-    box-shadow: 0 0 10px #fff,
-               0 0 20px  #fff,
-               0 0 30px  #fff,
-               0 0 40px  #FF1177,
-               0 0 70px  #FF1177,
-               0 0 80px  #FF1177,
-               0 0 100px #FF1177;
+    box-shadow: 0 0 3px #fff,
+               0 0 5px  #fff,
+               0 0 8px  #fff,
+               0 0 11px  $pink,
+               0 0 15px  $pink;
   }
   to {
-    box-shadow: 0 0 5px #fff,
-               0 0 10px #fff,
-               0 0 15px #fff,
-               0 0 20px #FF1177,
-               0 0 35px #FF1177,
-               0 0 40px #FF1177,
-               0 0 50px #FF1177;
+    box-shadow: 0 0 1px #fff,
+               0 0 3px #fff,
+               0 0 5px #fff,
+               0 0 8px $pink,
+               0 0 11px $pink;
   }
 }
 
 @keyframes neon1 {
   from {
-    box-shadow: 0 0 10px #fff,
-               0 0 20px  #fff,
-               0 0 30px  #fff,
-               0 0 40px  #FF1177,
-               0 0 70px  #FF1177,
-               0 0 80px  #FF1177,
-               0 0 100px #FF1177;
+    box-shadow: 0 0 3px #fff,
+               0 0 5px  #fff,
+               0 0 8px  #fff,
+               0 0 11px  $pink,
+               0 0 15px  $pink;
   }
   to {
-    box-shadow: 0 0 5px #fff,
-               0 0 10px #fff,
-               0 0 15px #fff,
-               0 0 20px #FF1177,
-               0 0 35px #FF1177,
-               0 0 40px #FF1177,
-               0 0 50px #FF1177;
+    box-shadow: 0 0 1px #fff,
+               0 0 3px #fff,
+               0 0 5px #fff,
+               0 0 8px $pink,
+               0 0 11px $pink;
   }
 }
 
