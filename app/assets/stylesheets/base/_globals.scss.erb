@@ -9,13 +9,58 @@ html, body {
 }
 
 html {
-	background: #D7DADB;
+	background: $gray;
 }
 
 body {
 	max-width: 500px;
 	margin: 0 auto;
 	background: white;
+}
+
+header {
+	height: 3em;
+	background: $dark-blu;
+
+	.logo {
+		width: 2em;
+		padding-top: .5em;
+		margin: 0 auto;
+
+		img {
+			height: 2em;
+			width: 100%;
+		}
+	}
+}
+
+h1 {
+	font: 700 7em Orbitron;
+	color: $pink;
+	text-align: center;
+	width: 100%;
+
+	margin-top: 17vh;
+}
+
+.button-container {
+	width: 100%;
+	text-align: center;
+}
+
+.button {
+	display: inline-block;
+	background-color: $dark-blu;
+	color: $blu;
+	font: 1.75em Questrial;
+
+	@include border-radius(1em);
+	border-right: solid .2em darken($dark-blu, 30%);
+	border-bottom: solid .2em darken($dark-blu, 30%);
+
+	padding: .6em 1em .5em;
+	margin: .5em 0;
+	text-decoration: none;
 }
 
 #core {
@@ -28,10 +73,6 @@ body {
 #core-footer, #core .push {
 	height: 5px; /* .push must be the same height as .footer */
 }
-
-
-
-
 
 
 #landing {

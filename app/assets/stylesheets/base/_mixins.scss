@@ -4,3 +4,10 @@
 	-o-webkit-transition: $trans 0.15s ease-in;
 	transition: $trans 0.15s ease-in;
 }
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}

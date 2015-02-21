@@ -2,13 +2,23 @@
 <html>
 <head>
   <title>Wake</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <link href='http://fonts.googleapis.com/css?family=Questrial|Orbitron:400,700' rel='stylesheet' type='text/css'>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
 	<div style="display:none" id="landing">
+		<header>
+			<div class="logo">
+				<%= image_tag "logo.png" %>
+			</div>
+		</header>
+		<h1>wake</h1>
+		<div class="button-container">
+			<%= link_to "we've got your back", select_url, :class => "button" %>
+		</div>
 		<div class="push"></div>
 	</div>
 	<footer id="landing-footer">
