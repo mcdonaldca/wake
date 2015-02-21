@@ -27,6 +27,7 @@ class MainController < ApplicationController
 
 		user = User.find 0
 		@name = user.name
+		@sleep_watch = user.sleep_watch
 		if not ["sir", "ma'am", "boss"].include? @name
 			redirect_to select_url
 		end
@@ -46,6 +47,19 @@ class MainController < ApplicationController
 	def pebble_nod
 		user = User.find 0
 		user.sleep = 1
+		user.save()
+
+		require 'json'
+
+		my_hash = {:SUCCESS => 1}
+		@success =  JSON.generate(my_hash)
+
+		render json: @success
+	end
+
+	def pebble_button
+		user = User.find 0
+		user.sleep = 0
 		user.save()
 
 		require 'json'
@@ -77,7 +91,11 @@ class MainController < ApplicationController
 		user = User.find 0
 		user.name = ""
 		user.sleep = 0
+		user.sleep_watch = 0
 		redirect_to root_url
+	end
+
+	def sleep_watch
 	end
 
 end
