@@ -1,1 +1,18 @@
-<h1>pick</h1>
+<h1>are you a...</h1>
+
+<div class="button-container">
+	<%= link_to "sir", select_url, :class => "button" %>
+</div>
+<div class="button-container">
+	<%= link_to "ma'am", select_url, :class => "button" %>
+</div>
+<div class="button-container">
+	<%= link_to "boss", select_url, :class => "button" %>
+</div>
+
+<script>
+$(window).bind("load", function() {
+   $("#graphic").show();
+   $("#empty").hide();
+});
+</script>

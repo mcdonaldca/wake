@@ -19,28 +19,45 @@ body {
 }
 
 header {
-	height: 4em;
+	height: 3em;
 	background: $dark-blu;
 
-	.logo {
-		width: 3em;
+	.logo, .logo-wake {
 		padding-top: .5em;
-		margin: 0 auto;
+	}
 
-		img {
-			height: 3em;
+	.logo {
+		width: 2em;
+		margin: 0 auto;
+	}
+
+	.logo-wake {
+		width: 8.41em;
+		margin-left: .5em;
+	}
+
+	img {
+			height: 2em;
 			width: 100%;
 		}
-	}
 }
 
-h1 {
+h1#wake {
 	font: 700 5em Orbitron;
 	color: $pink;
 	text-align: center;
 	width: 100%;
 
 	margin-top: 7vh;
+}
+
+h1 {
+	font: 3em Questrial;
+	color: $pink;
+	text-align: center;
+	width: 100%;
+
+	margin-top: 0;
 }
 
 .button-container {
@@ -59,34 +76,32 @@ h1 {
 	border-bottom: solid .2em darken($dark-blu, 30%);
 
 	padding: .6em 1em .5em;
-	margin: .5em 0;
+	margin: .15em 0;
 	text-decoration: none;
 }
 
-#core {
+#wrapper {
 	min-height: 100%;
 	height: auto !important; /* This line and the next line are not necessary unless you need IE6 support */
 	height: 100%;
-	margin: 0 auto -5px; /* the bottom margin is the negative value of the footer's height */
+	<% if @graphic %>
+		margin: 0 auto -5px; /* the bottom margin is the negative value of the footer's height */
+	<% else %>
+		margin: 0 auto -200px; /* the bottom margin is the negative value of the footer's height */
+	<% end %>
 }
 
-#core-footer, #core .push {
-	height: 5px; /* .push must be the same height as .footer */
-}
+<% if @graphic %>
+	footer, #push {
+		height: 5px; /* .push must be the same height as .footer */
+	}
+<% else %>
+	footer, #push {
+		height: 200px; /* .push must be the same height as .footer */
+	}
+<% end %>
 
-
-#landing {
-	min-height: 100%;
-	height: auto !important; /* This line and the next line are not necessary unless you need IE6 support */
-	height: 100%;
-	margin: 0 auto -200px; /* the bottom margin is the negative value of the footer's height */	
-}
-
-#landing-footer, #landing .push {
-	height: 200px; /* .push must be the same height as .footer */
-}
-
-#landing-footer {
+footer#graphic {
 	width: 100%;
 	text-align: center;
 	img {
