@@ -122,21 +122,6 @@ class MainController < ApplicationController
 		 
 	end
 
-	def handle_television
-
-		start = get_offset()
-
-		job_id =
-      Rufus::Scheduler.singleton.in '1s' do
-      	finish = get_offset()
-
-        if start < finish
-		    	response = Net::HTTP.get(URI("http://10.19.188.238:8080/remote/processKey?key=pause"))
-		    end
-      end
-
-	end
-
 	def phone_answered 
 		user = User.find 0
 		if user.sleep != 0
@@ -145,12 +130,26 @@ class MainController < ApplicationController
 		end
 	end
 
+	def handle_television
+
+		#start = get_offset()
+		response = Net::HTTP.get(URI("http://10.19.188.238:8080/remote/processKey?key=pause"))
+
+		#job_id =
+    #  Rufus::Scheduler.singleton.in '1s' do
+    #  	finish = get_offset()
+
+#        if start != finish
+#		    	response = Net::HTTP.get(URI("http://10.19.188.238:8080/remote/processKey?key=pause"))
+#		    end
+ #     end
+
+	end
+
 	def get_offset
 
 		response = Net::HTTP.get_response(URI("http://10.19.188.238:8080/tv/getTuned")).body
-		offset = JSON.parse(response)["offset"]
-
-		return offset.to_i
+		return JSON.parse(response)["offset"]
 
 	end
 
