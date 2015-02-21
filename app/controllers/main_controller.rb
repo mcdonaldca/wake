@@ -1,5 +1,13 @@
 class MainController < ApplicationController
 
+	def initialize
+		user = User.new
+		user.id = 0
+		user.name = ""
+		user.sleep = 0
+		user.save()
+	end
+
 	def index
 		@graphic = true
 		@graphic_name = "security_1.png"
