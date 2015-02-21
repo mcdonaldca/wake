@@ -3,6 +3,7 @@ class MainController < ApplicationController
 	def index
 		@graphic = true
 		@graphic_name = "security_1.png"
+		session[:asleep] = 0
 	end
 
 	def select
@@ -28,10 +29,27 @@ class MainController < ApplicationController
 	def asleep
 		require 'json'
 
-		my_hash = {:SLEEP => 0}
+		my_hash = {:SLEEP => session[:asleep]}
 		@sleep =  JSON.generate(my_hash)
 
 		render json: @sleep
+	end
+
+	def pebble_nod
+		session[:asleep] = 1
+	end
+
+	def reset
+		session = nil
+		redirect_to root_url
+	end
+
+	def fitbit_sleep
+		session[:asleep] = 1
+	end
+
+	def fitbit
+		redirect_to dashboard_url
 	end
 
 end
