@@ -98,4 +98,12 @@ class MainController < ApplicationController
 	def sleep_watch
 	end
 
+	def make_sound
+		 #curl -X POST https://api.twilio.com/2010-04-01/Accounts/AC77847336a48c6aa58c4f1c0e7cbf67ae/Calls.json \
+   #-u AC77847336a48c6aa58c4f1c0e7cbf67ae:846b1a6d20f408b88b3a4d78a8604431 \
+   #--data-urlencode "From=+19899410565" \
+   #--data-urlencode "To=+19894883855" \
+   #--data-urlencode 'Url=http%3A%2F%2Ftwimlets.com%2Fecho%3FTwiml%3D%253CResponse%253E%253CSay%253EThis%2Bis%2Ba%2Btest%2521%253C%252FSay%253E%253C%252FResponse%253E'
+	end
+
 end
