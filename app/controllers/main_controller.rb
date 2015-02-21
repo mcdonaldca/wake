@@ -125,15 +125,13 @@ class MainController < ApplicationController
 	def handle_television
 
 		start = get_offset()
-		Rails.logger.info "it's now #{Time.now}"
 
 		job_id =
       Rufus::Scheduler.singleton.in '1s' do
       	finish = get_offset()
-        Rails.logger.info "time flies, it's now #{Time.now}"
 
         if start < finish
-		    	response = Net::HTTP.get_response(URI("http://10.19.188.238:8080/remote/processKey?key=pause"))
+		    	response = Net::HTTP.get(URI("http://10.19.188.238:8080/remote/processKey?key=pause"))
 		    end
       end
 
