@@ -37,6 +37,13 @@ class MainController < ApplicationController
 
 	def pebble_nod
 		session[:asleep] = 1
+
+		require 'json'
+
+		my_hash = {:SUCCESS => 1}
+		@success =  JSON.generate(my_hash)
+
+		render json: @success
 	end
 
 	def reset
@@ -46,6 +53,13 @@ class MainController < ApplicationController
 
 	def fitbit_sleep
 		session[:asleep] = 1
+
+		require 'json'
+
+		my_hash = {:SUCCESS => 1}
+		@success =  JSON.generate(my_hash)
+
+		render json: @success
 	end
 
 	def fitbit
