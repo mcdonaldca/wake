@@ -1,0 +1,54 @@
+* {
+	padding: 0;
+	margin: 0;
+}
+
+html, body {
+	height: 100%;
+	width: 100%;
+}
+
+html {
+	background: #D7DADB;
+}
+
+body {
+	max-width: 500px;
+	margin: 0 auto;
+	background: white;
+}
+
+#core {
+	min-height: 100%;
+	height: auto !important; /* This line and the next line are not necessary unless you need IE6 support */
+	height: 100%;
+	margin: 0 auto -5px; /* the bottom margin is the negative value of the footer's height */
+}
+
+#core-footer, #core .push {
+	height: 5px; /* .push must be the same height as .footer */
+}
+
+
+
+
+
+
+#landing {
+	min-height: 100%;
+	height: auto !important; /* This line and the next line are not necessary unless you need IE6 support */
+	height: 100%;
+	margin: 0 auto -300px; /* the bottom margin is the negative value of the footer's height */	
+}
+
+#landing-footer, #landing .push {
+	height: 300px; /* .push must be the same height as .footer */
+}
+
+#landing-footer {
+	width: 100%;
+	text-align: center;
+	img {
+		width: 300px;
+	}
+}

@@ -8,7 +8,32 @@
 </head>
 <body>
 
-<%= yield %>
+	<div style="display:none" id="landing">
+		<div class="push"></div>
+	</div>
+	<footer id="landing-footer">
+		<%= image_tag 'security_1.png' %>
+	</footer>
+
+	<div id="core">
+		<header>
+			<div class="via-logo mobile-nav">
+				
+			</div>
+			<nav>
+	 			<ul class="mobile">
+	 				<li><!--%= link_to "dashboard", dashboard_url %--></li>
+	 				<li><!--%= link_to "your trips", root_url %--></li>
+	 				<li><!--%= link_to "logout", logout_url %--></li>
+	 			</ul>
+	 		</nav>
+		</header>
+		<%= yield %>
+		<div class="push"></div>
+	</div>
+	
+	<footer id="core-footer">
+	</footer>
 
 </body>
 </html>
