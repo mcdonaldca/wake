@@ -35,12 +35,12 @@ header {
 }
 
 h1 {
-	font: 700 7em Orbitron;
+	font: 700 5em Orbitron;
 	color: $pink;
 	text-align: center;
 	width: 100%;
 
-	margin-top: 17vh;
+	margin-top: 13vh;
 }
 
 .button-container {
@@ -52,7 +52,7 @@ h1 {
 	display: inline-block;
 	background-color: $dark-blu;
 	color: $blu;
-	font: 1.75em Questrial;
+	font: 1.25em Questrial;
 
 	@include border-radius(1em);
 	border-right: solid .2em darken($dark-blu, 30%);
@@ -79,17 +79,18 @@ h1 {
 	min-height: 100%;
 	height: auto !important; /* This line and the next line are not necessary unless you need IE6 support */
 	height: 100%;
-	margin: 0 auto -300px; /* the bottom margin is the negative value of the footer's height */	
+	margin: 0 auto -200px; /* the bottom margin is the negative value of the footer's height */	
 }
 
 #landing-footer, #landing .push {
-	height: 300px; /* .push must be the same height as .footer */
+	height: 200px; /* .push must be the same height as .footer */
 }
 
 #landing-footer {
 	width: 100%;
 	text-align: center;
 	img {
-		width: 300px;
+		height: 100%;
+		width: 200px;
 	}
 }
