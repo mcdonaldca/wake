@@ -23,13 +23,14 @@ class MainController < ApplicationController
 
 	def dashboard
 
+		@graphic = false
+
 		user = User.find 0
 		@name = user.name
 		if not ["sir", "ma'am", "boss"].include? @name
 			redirect_to select_url
 		end
 
-		@graphic = false
 	end
 
 	def asleep

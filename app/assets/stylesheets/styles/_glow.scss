@@ -1,36 +1,43 @@
 
 
 .light {
-  background-color: $pink;
-  width: 10px;
-  height: 10px;
+  display: inline-block;
+  width: .5em;
+  height: .5em;
+  margin-left: .5em;
 
   @include border-radius(50%);
-
-  
   
 }
 
 .light.red {
-
+  background-color: $pink;
 
   -webkit-animation: red_glow 1.5s ease-in-out infinite alternate;
   -moz-animation: red_glow 1.5s ease-in-out infinite alternate;
   animation: red_glow 1.5s ease-in-out infinite alternate; 
 }
 
+.light.green {
+  background-color: $green;
+
+  -webkit-animation: green_glow 1.5s ease-in-out infinite alternate;
+  -moz-animation: green_glow 1.5s ease-in-out infinite alternate;
+  animation: green_glow 1.5s ease-in-out infinite alternate; 
+}
+
 @-webkit-keyframes red_glow {
   from {
-    box-shadow: 0 0 3px #fff,
-               0 0 5px  #fff,
-               0 0 8px  #fff,
+    box-shadow: 0 0 3px $dark-blu,
+               0 0 5px  $dark-blu,
+               0 0 8px  $dark-blu,
                0 0 11px  $pink,
                0 0 15px  $pink;
   }
   to {
-    box-shadow: 0 0 1px #fff,
-               0 0 3px #fff,
-               0 0 5px #fff,
+    box-shadow: 0 0 1px $dark-blu,
+               0 0 3px $dark-blu,
+               0 0 5px $dark-blu,
                0 0 8px $pink,
                0 0 11px $pink;
   }
@@ -38,16 +45,16 @@
 
 @-moz-keyframes neon1 {
   from {
-    box-shadow: 0 0 3px #fff,
-               0 0 5px  #fff,
-               0 0 8px  #fff,
+    box-shadow: 0 0 3px $dark-blu,
+               0 0 5px  $dark-blu,
+               0 0 8px  $dark-blu,
                0 0 11px  $pink,
                0 0 15px  $pink;
   }
   to {
-    box-shadow: 0 0 1px #fff,
-               0 0 3px #fff,
-               0 0 5px #fff,
+    box-shadow: 0 0 1px $dark-blu,
+               0 0 3px $dark-blu,
+               0 0 5px $dark-blu,
                0 0 8px $pink,
                0 0 11px $pink;
   }
@@ -55,18 +62,69 @@
 
 @keyframes neon1 {
   from {
-    box-shadow: 0 0 3px #fff,
-               0 0 5px  #fff,
-               0 0 8px  #fff,
+    box-shadow: 0 0 3px $dark-blu,
+               0 0 5px  $dark-blu,
+               0 0 8px  $dark-blu,
                0 0 11px  $pink,
                0 0 15px  $pink;
   }
   to {
-    box-shadow: 0 0 1px #fff,
-               0 0 3px #fff,
-               0 0 5px #fff,
+    box-shadow: 0 0 1px $dark-blu,
+               0 0 3px $dark-blu,
+               0 0 5px $dark-blu,
                0 0 8px $pink,
                0 0 11px $pink;
+  }
+}
+
+@-webkit-keyframes green_glow {
+  from {
+    box-shadow: 0 0 3px $dark-blu,
+               0 0 5px  $dark-blu,
+               0 0 8px  $dark-blu,
+               0 0 11px  $green,
+               0 0 15px  $green;
+  }
+  to {
+    box-shadow: 0 0 3px $dark-blu,
+               0 0 5px  $dark-blu,
+               0 0 8px  $dark-blu,
+               0 0 11px  $green,
+               0 0 15px  $green;
+  }
+}
+
+@-moz-keyframes green_glow {
+  from {
+    box-shadow: 0 0 3px $dark-blu,
+               0 0 5px  $dark-blu,
+               0 0 8px  $dark-blu,
+               0 0 11px  $green,
+               0 0 15px  $green;
+  }
+  to {
+    box-shadow: 0 0 3px $dark-blu,
+               0 0 5px  $dark-blu,
+               0 0 8px  $dark-blu,
+               0 0 11px  $green,
+               0 0 15px  $green;
+  }
+}
+
+@keyframes green_glow {
+  from {
+    box-shadow: 0 0 3px $dark-blu,
+               0 0 5px  $dark-blu,
+               0 0 8px  $dark-blu,
+               0 0 11px  $green,
+               0 0 15px  $green;
+  }
+  to {
+    box-shadow: 0 0 3px $dark-blu,
+               0 0 5px  $dark-blu,
+               0 0 8px  $dark-blu,
+               0 0 11px  $green,
+               0 0 15px  $green;
   }
 }
 

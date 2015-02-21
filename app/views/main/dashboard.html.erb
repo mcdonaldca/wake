@@ -1,10 +1,21 @@
 <h1>dashboard</h1>
 <h2 class="subtitle">Let us know what you need, <%= @name %></h2>
+<h2><%= @graphic_name %></h2>
 
-<div class="light">
+<div class="button-container">
+	<%= link_to sleep_watch_url, :class => "button" do %>
+	  sleep watch is off
+	  <div class="light green">
+		</div>
+	<% end %>
 </div>
 
 <div class="bottom-left-security">
 	<%= image_tag "security_5.png" %>
 </div>
 
+<script>
+$(window).bind("load", function() {
+   $("#empty").hide();
+});
+</script>

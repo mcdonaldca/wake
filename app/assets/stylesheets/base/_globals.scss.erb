@@ -65,6 +65,7 @@ h2.subtitle {
 	color: $dark-blu;
 	text-align: center;
 	width: 100%;
+	margin-bottom: .5em;
 }
 
 .button-container {
@@ -91,8 +92,8 @@ h2.subtitle {
 	width: 7em;
 	height: 15.55em;
 	position: absolute;
-	bottom: 10px;
 	left: -10px;
+	bottom: 10px;
 
 	img {
 		width: 100%;
@@ -107,7 +108,7 @@ h2.subtitle {
 	<% if @graphic %>
 		margin: 0 auto -5px; /* the bottom margin is the negative value of the footer's height */
 	<% else %>
-		margin: 0 auto -200px; /* the bottom margin is the negative value of the footer's height */
+		margin: 0 auto -15.55em; /* the bottom margin is the negative value of the footer's height */
 	<% end %>
 }
 
@@ -117,7 +118,7 @@ h2.subtitle {
 	}
 <% else %>
 	footer, #push {
-		height: 200px; /* .push must be the same height as .footer */
+		height: 15.55em; /* .push must be the same height as .footer */
 	}
 <% end %>
 
@@ -126,6 +127,6 @@ footer#graphic {
 	text-align: center;
 	img {
 		height: 100%;
-		width: 200px;
+		width: 15.55em;
 	}
 }
