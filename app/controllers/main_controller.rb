@@ -139,7 +139,7 @@ class MainController < ApplicationController
 
 	def phone_answered 
 		user = User.find 0
-		if not user.sleep = 1
+		if user.sleep != 0
 			user.sleep = 0
 			user.save()
 		end
