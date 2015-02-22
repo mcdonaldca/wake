@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get 'phone_answered' => 'main#phone_answered', :as => 'phone_answered'
 
   get 'smartthings_auth' => 'main#smartthings_auth', :as => "smartthings_auth"
+  get 'smartthings' => 'main#smartthings', :as => "smartthings"
 
   get 'asleep' => 'main#asleep', :as => 'asleep'
   get 'reset' => 'main#reset', :as => 'reset'

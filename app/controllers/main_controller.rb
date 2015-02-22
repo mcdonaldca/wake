@@ -160,9 +160,14 @@ class MainController < ApplicationController
 		client_secret = "83956334-f042-4689-9a12-48865e5afb57"
 		redirect_encoded = "http%3A%2F%2Fwake-treehacks.herokuapp.com%2Fsmartthings"
 
-		@url = "https://graph.api.smartthings.com/oauth/token?grant_type=authorization_code&client_id=#{client_id}&client_secret=#{client_secret}&redirect_uri=#{redirect_encoded}&scope=app&code=#{auth_code}"
-		
+		url = "https://graph.api.smartthings.com/oauth/token?grant_type=authorization_code&client_id=#{client_id}&client_secret=#{client_secret}&redirect_uri=#{redirect_encoded}&scope=app&code=#{auth_code}"
 
+		response = Net::HTTP.get_response(URI(url)).body
+		@access_token = JSON.parse(response)["access_token"]
+
+	end
+
+	def smartthings
 	end
 
 end
