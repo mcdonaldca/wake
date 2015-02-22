@@ -104,53 +104,48 @@ class MainController < ApplicationController
 	#                              #
 	################################
 
+	# Pebbly queries to see if it should go off
+	# TODO: rename asleep to awaken
 	def asleep
-		require 'json'
-
 		user = User.find 0
-		my_hash = {:SLEEP => user.sleep}
-		@sleep =  JSON.generate(my_hash)
 
-		render json: @sleep
+		# TODO: rename SLEEP to BUZZ
+		my_hash = {:SLEEP => user.sleep}
+		@wake = JSON.generate(my_hash)
+		render json: @wake
+		
 	end
 
+	# Pebble pings this when it detects a nod
 	def pebble_nod
 		user = User.find 0
-		user.sleep = 1
-		user.save()
 
-		require 'json'
-
-		my_hash = {:SUCCESS => 1}
-		@success =  JSON.generate(my_hash)
-
-		render json: @success
+		if user.pebble_loc != "wrist" and should_wake 
+			user.sleep = 1
+			user.save()
+			sleep_detected
+		end
 	end
 
+	# Pebble pings this when the vibration alarm is silenced
 	def pebble_button
 		user = User.find 0
-		user.sleep = 0
-		user.save()
 
-		require 'json'
-
-		my_hash = {:SUCCESS => 1}
-		@success =  JSON.generate(my_hash)
-
-		render json: @success
+		if user.sleep != 0
+			user.sleep = 0
+			user.save()
+		end
 	end
 
+	# FitBit pings this when it detects user sleep
 	def fitbit_sleep
 		user = User.find 0
-		user.sleep = 1
-		user.save()
 
-		require 'json'
-
-		my_hash = {:SUCCESS => 1}
-		@success =  JSON.generate(my_hash)
-
-		render json: @success
+		if should_wake
+			user.sleep = 1
+			user.save()
+			sleep_detected
+		end
 	end
 
 	################################
@@ -158,6 +153,49 @@ class MainController < ApplicationController
 	#  Modular Sleep Handlers      #
 	#                              #
 	################################
+
+	# If the user has fallen asleep
+	def sleep_detected
+		user = User.find 0
+
+		if user.aural == "on"
+			make_sound
+		end
+	end
+
+	def should_wake
+		
+		# TODO: check in in meeting
+		# TODO: check if driving
+
+		user = User.find 0
+
+		# If user isn't in a meeting & isn't driving
+		# Check if they have sleep watch turned off
+		if user.sleep_watch == 0
+			handle_television
+			handle_home
+			return false
+		end
+
+		# If user isn't in a meeting & isn't driving
+		# Don't have sleep watch turned off
+		# Check for nap mode
+		if user.sleep_watch == 1
+			handle_television
+			job_id =
+	      Rufus::Scheduler.singleton.in '27m' do
+	      	user.sleep = 1
+	      	user.save()
+	      	sleep_detected
+	      end
+		end
+
+		# If user isn't in a meeting & isn't driving
+		# Don't have sleep watch turned off
+		# Don't have nap mode on, so wake 'em up
+		return true
+	end
 
 	def make_sound
 
@@ -183,15 +221,8 @@ class MainController < ApplicationController
 		 
 	end
 
-  # 
+  # Exists to be an endpoint for twilio call
 	def phone_answered 
-		user = User.find 0
-
-		if user.sleep != 0
-			user.sleep = 0
-			user.save()
-		end
-
 	end
 
   # Check the television to see if it needs to be paused
