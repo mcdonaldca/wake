@@ -1,9 +1,5 @@
 Rails.application.routes.draw do
 
-  get   '/login', :to => 'sessions#new', :as => :login
-  #match '/auth/:provider/callback', :to => 'sessions#create'
-  #match '/auth/failure', :to => 'sessions#failure'
-
   root 'main#index'
   get 'select' => 'main#select', :as => 'select'
   get 'identity/:name' => 'main#identity', :as => 'identity'
