@@ -1,6 +1,5 @@
 <h1>dashboard</h1>
 <h2 class="subtitle">Let us know what you need, <%= @name %></h2>
-<h2><%= @graphic_name %></h2>
 
 <div class="button-container">
 	<%= link_to sleep_watch_url, :class => "button" do %>
@@ -21,6 +20,20 @@
 	<h3>Integrations</h3>
 	<div class="button-container">
 		<a href="" class="button">
+			fitbit
+			<div class="light red">
+			</div>
+		</a>
+	</div>
+	<div class="button-container">
+		<a href="" class="button">
+			directv
+			<div class="light red">
+			</div>
+		</a>
+	</div>
+	<div class="button-container">
+		<a href="" class="button">
 			google calendar
 			<div class="light red">
 			</div>
@@ -36,7 +49,7 @@
 	
 </div>
 
-<div class="bottom-left-security">
+<div class="bottom-security left">
 	<%= image_tag "security_5.png" %>
 </div>
 
