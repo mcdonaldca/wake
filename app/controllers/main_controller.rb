@@ -87,7 +87,7 @@ class MainController < ApplicationController
 		user.fitbit_oauth_secret = "353578d28f3a5219428fca77f3a955e7"
 		user.save()
 		
-		@url = "https://www.fitbit.com/oauth/authenticate?oauth_token=#{user.fitbit_oauth_token}"
+		@url = "https://www.fitbit.com/oauth/authenticate?oauth_token=" + user.fitbit_oauth_token
 		
 	end
 
