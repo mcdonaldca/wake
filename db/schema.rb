@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150222024426) do
+ActiveRecord::Schema.define(version: 20150222075138) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,9 @@ ActiveRecord::Schema.define(version: 20150222024426) do
     t.integer  "sleep_watch"
     t.string   "smartthings_access_token"
     t.string   "smartthings_api_endpoint"
+    t.string   "directv_ip"
+    t.integer  "aural"
+    t.string   "pebble_loc"
   end
 
 end

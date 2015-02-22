@@ -221,6 +221,9 @@ class MainController < ApplicationController
 		user.sleep_watch = 0
 		user.smartthings_access_token = nil
 		user.smartthings_api_endpoint = nil
+		user.directv_ip = nil
+		user.aural = 1
+		user.pebble_loc = "wrist"
 		user.save()
 		redirect_to root_url
 	end
