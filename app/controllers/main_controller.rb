@@ -181,7 +181,7 @@ class MainController < ApplicationController
 
 		#response = Net::HTTP.get_response(URI(@url)).body
 		#access_token = JSON.parse(response)["access_token"]
-		access_token = "74908302-2807-4c45-8edb-02ff65696205"
+		access_token = "22853c41-2f0d-4c0a-bb50-0dc2ff1c84a8"
 		api_endpoint = "https://graph.api.smartthings.com/api/smartapps/installations/bfc3f42a-835e-4082-b88f-abb1d8ce5e83"
 
 		user = User.find 0
