@@ -2,14 +2,56 @@
 <h2 class="subtitle"><%= @name %>, we'd take a bullet for you</h2>
 
 <div class="stoplight">
-	<div class="light big red">
+	<%= link_to set_sleep_watch_url("red") do %>
+	  <% if @sleep_watch == 0 %>
+			<div class="light big red glow">
+		<% else %>
+			<div class="light big red">
+		<% end %>
+		</div>
+	<% end %>
+	<%= link_to set_sleep_watch_url("yellow") do %>
+		<% if @sleep_watch == 1 %>
+			<div class="light big yellow glow">
+		<% else %>
+			<div class="light big yellow">
+		<% end %>
+		</div>
+	<% end %>
+	<%= link_to set_sleep_watch_url("green") do %>
+		<% if @sleep_watch == 2 %>
+			<div class="light big green glow">
+		<% else %>
+			<div class="light big green">
+		<% end %>
+		</div>
+	<% end %>
+</div>
+<h3 class="description">
+	<% if @sleep_watch == 0 %>
+		sleep watch is currently off
+	<% elsif @sleep_watch == 1 %>
+		if you fall asleep, we'll let you rest for 27.5 minutes
+	<% else %>
+	  we shall prevent sleep at all costs
+	<% end %>
+</h3>
+
+<div class="connections left">
+	<h3 class="left">aural alarms</h3>
+	<div class="button-container">
+		<a class="button" href="">on</a>
+		<a class="button" href="">off</a>
 	</div>
-	<div class="light big yellow">
+	<h3 class="left">pebble sensor</h3>
+	<a class="button" href="">wrist</a>
+	<a class="button" href="">head</a>
+	<div class="button-container">
 	</div>
-	<div class="light big green">
+	<div class="button-container">
+		<%= link_to "back", dashboard_url, :class => "button back left" %>
 	</div>
 </div>
-<h3 class="description"></h3>
 
 <div class="bottom-security right">
 	<%= image_tag "security_3.png" %>

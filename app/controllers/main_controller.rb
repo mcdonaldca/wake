@@ -91,7 +91,25 @@ class MainController < ApplicationController
 
 		user = User.find 0
 		@name = user.name
+		@sleep_watch = user.sleep_watch
 
+	end
+
+	def set_sleep_watch
+		mode = params["mode"]
+		user = User.find 0
+
+		if mode == "green"
+			user.sleep_watch = 2
+		elsif mode == "yellow"
+			user.sleep_watch = 1
+		else
+			user.sleep_watch = 0
+		end
+
+		user.save()
+
+		redirect_to sleep_watch_url
 	end
 
 	def make_sound

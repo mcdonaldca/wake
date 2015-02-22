@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'identity/:name' => 'main#identity', :as => 'identity'
   get 'dashboard' => 'main#dashboard', :as => 'dashboard'
   get 'sleep_watch' => 'main#sleep_watch', :as => 'sleep_watch'
+  get 'set_sleep_watch/:mode' => 'main#set_sleep_watch', :as => 'set_sleep_watch'
 
   get 'handle_television' => 'main#handle_television', :as => 'handle_television'
   get 'handle_home' => 'main#handle_home', :as => 'handle_home'

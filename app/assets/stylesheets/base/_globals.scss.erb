@@ -75,13 +75,21 @@ h3 {
 	padding: 0 .35em .25em 0;
 }
 
+h3.left {
+	text-align: left;
+	padding: .25em .35em 0 0;
+}
+
+h3.description {
+	color: black;
+	font: .8em Questrial;
+	text-align: center;
+	padding: 1em 0 0 0 ;
+}
+
 .button-container {
 	width: 100%;
 	text-align: center;
-}
-
-.connections .button-container {
-	text-align: right;
 }
 
 .button {
@@ -94,9 +102,18 @@ h3 {
 	border-right: solid .2em darken($dark-blu, 30%);
 	border-bottom: solid .2em darken($dark-blu, 30%);
 
-	padding: .6em 1em .5em;
+	padding: .5em 1em .4em;
 	margin: .15em 0;
 	text-decoration: none;
+
+	&.back {
+		background-color: $blu;
+		color: $dark-blu;
+		border-right: solid .2em darken($blu, 30%);
+		border-bottom: solid .2em darken($blu, 30%);
+		margin-top: 1.5em;
+	}
+
 }
 
 .bottom-security {
@@ -123,6 +140,20 @@ h3 {
 	position: absolute;
 	right: 10px;
 	bottom: 20px;
+
+	.button-container {
+		text-align: right;
+	}
+
+	&.left .button-container {
+		text-align: left;
+	}
+
+	&.left {
+		text-align: left;
+		right: none;
+		left: 10px;
+	}
 }
 
 #wrapper {

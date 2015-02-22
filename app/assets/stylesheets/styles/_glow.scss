@@ -42,6 +42,10 @@
   width: 100%;
   text-align: center;
   margin-top: 1em;
+
+  a {
+    text-decoration: none;
+  }
 }
 
 .light.big {
@@ -51,12 +55,32 @@
 }
 
 .light.big.red {
+  -webkit-animation: none;
+  -moz-animation: none;
+  animation: none;
+}
+
+.light.big.yellow {
+
+  -webkit-animation: none;
+  -moz-animation: none;
+  animation: none;
+}
+
+.light.big.green {
+
+  -webkit-animation: none;
+  -moz-animation: none;
+  animation: none;
+}
+
+.light.big.red.glow {
   -webkit-animation: red_light 1.5s ease-in-out infinite alternate;
   -moz-animation: red_light 1.5s ease-in-out infinite alternate;
   animation: red_light 1.5s ease-in-out infinite alternate; 
 }
 
-.light.big.yellow {
+.light.big.yellow.glow {
 
   -webkit-animation: yellow_light 1.5s ease-in-out infinite alternate;
   -moz-animation: yellow_light 1.5s ease-in-out infinite alternate;
@@ -64,7 +88,7 @@
 
 }
 
-.light.big.green {;
+.light.big.green.glow {
 
   -webkit-animation: green_light 1.5s ease-in-out infinite alternate;
   -moz-animation: green_light 1.5s ease-in-out infinite alternate;
