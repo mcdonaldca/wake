@@ -33,8 +33,13 @@
 	<div class="button-container">
 		<a href="" class="button">
 			directv
-			<div class="light red">
-			</div>
+			<% if !@directv_check.nil? %>
+				<div class="light green">
+				</div>
+			<% else %>
+				<div class="light red">
+				</div>
+			<% end %>
 		</a>
 	</div>
 	<div class="button-container">

@@ -40,13 +40,23 @@
 <div class="connections left">
 	<h3 class="left">aural alarms</h3>
 	<div class="button-container">
-		<a class="button" href="">on</a>
-		<a class="button" href="">off</a>
+		<% if @aural == 1 %>
+			<%= link_to "on", set_aural_url("on"), :class => "button" %>
+			<%= link_to "off", set_aural_url("off"), :class => "button gray" %>
+		<% else %>
+			<%= link_to "on", set_aural_url("on"), :class => "button gray" %>
+			<%= link_to "off", set_aural_url("off"), :class => "button" %>
+		<% end %>
 	</div>
 	<h3 class="left">pebble sensor</h3>
-	<a class="button" href="">wrist</a>
-	<a class="button" href="">head</a>
 	<div class="button-container">
+		<% if @pebble_loc == "head" %>
+			<%= link_to "wrist", set_pebble_loc_url("wrist"), :class => "button gray" %>
+			<%= link_to "head", set_pebble_loc_url("head"), :class => "button" %>
+		<% else %>
+			<%= link_to "wrist", set_pebble_loc_url("wrist"), :class => "button" %>
+			<%= link_to "head", set_pebble_loc_url("head"), :class => "button gray" %>
+		<% end %>
 	</div>
 	<div class="button-container">
 		<%= link_to "back", dashboard_url, :class => "button back left" %>

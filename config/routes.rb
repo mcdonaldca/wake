@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   get 'dashboard' => 'main#dashboard', :as => 'dashboard'
   get 'sleep_watch' => 'main#sleep_watch', :as => 'sleep_watch'
   get 'set_sleep_watch/:mode' => 'main#set_sleep_watch', :as => 'set_sleep_watch'
+  get 'set_aural/:mode' => 'main#set_aural', :as => 'set_aural'
+  get 'set_pebble_loc/:loc' => 'main#set_pebble_loc', :as => 'set_pebble_loc'
 
   get 'handle_television' => 'main#handle_television', :as => 'handle_television'
   get 'handle_home' => 'main#handle_home', :as => 'handle_home'

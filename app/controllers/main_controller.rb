@@ -31,6 +31,7 @@ class MainController < ApplicationController
 
 		@smartthings_check_1 = user.smartthings_access_token
 		@smartthings_check_2 = user.smartthings_api_endpoint
+		@directv_check = user.directv_ip
 
 		if not ["sir", "ma'am", "boss"].include? @name
 			redirect_to select_url
@@ -92,6 +93,8 @@ class MainController < ApplicationController
 		user = User.find 0
 		@name = user.name
 		@sleep_watch = user.sleep_watch
+		@aural = user.aural
+		@pebble_loc = user.pebble_loc
 
 	end
 
@@ -105,6 +108,36 @@ class MainController < ApplicationController
 			user.sleep_watch = 1
 		else
 			user.sleep_watch = 0
+		end
+
+		user.save()
+
+		redirect_to sleep_watch_url
+	end
+
+	def set_aural
+		mode = params["mode"]
+		user = User.find 0
+
+		if mode == "off"
+			user.aural = 0
+		else 
+			user.aural = 1
+		end
+
+		user.save()
+
+		redirect_to sleep_watch_url
+	end
+
+	def set_pebble_loc
+		loc = params["loc"]
+		user = User.find 0
+
+		if loc == "head"
+			user.pebble_loc = loc
+		else
+			user.pebble_loc = "wrist"
 		end
 
 		user.save()
@@ -167,16 +200,20 @@ class MainController < ApplicationController
 
 		user = User.find 0
 
-		uri = URI(user.smartthings_api_endpoint + "/switch/off")
-		req = Net::HTTP::Post.new(uri)
-		req.content_type = 'application/json'
-		req.add_field("authorization", 'Bearer ' + user.smartthings_access_token)
+		unless user.smartthings_api_endpoint.nil? or user.smartthings_access_token.nil?		
 
-		http = Net::HTTP.new(uri.host, uri.port)
-		http.use_ssl = true
-		response = http.request(req)
+			uri = URI(user.smartthings_api_endpoint + "/switch/off")
+			req = Net::HTTP::Post.new(uri)
+			req.content_type = 'application/json'
+			req.add_field("authorization", 'Bearer ' + user.smartthings_access_token)
 
-		redirect_to dashboard_url
+			http = Net::HTTP.new(uri.host, uri.port)
+			http.use_ssl = true
+			response = http.request(req)
+
+		end
+
+		redirect_to dashboard_url		
 	end
 
 	def get_offset
@@ -221,7 +258,7 @@ class MainController < ApplicationController
 		user.sleep_watch = 0
 		user.smartthings_access_token = nil
 		user.smartthings_api_endpoint = nil
-		user.directv_ip = nil
+		user.directv_ip = "10.19.188.238"
 		user.aural = 1
 		user.pebble_loc = "wrist"
 		user.save()
