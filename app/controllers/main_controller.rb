@@ -156,8 +156,8 @@ class MainController < ApplicationController
 	def smartthings_auth
 
 		auth_code = params["code"]
-		client_id = "0d530364-bccf-486a-aa49-ee7eacdff89f"
-		client_secret = "83956334-f042-4689-9a12-48865e5afb57"
+		client_id = "627d1e37-7ac3-4368-8a28-4028570bc3a9"
+		client_secret = "1b4cfc4b-20b4-4cff-a424-0254b325c1b9"
 		redirect_encoded = "http%3A%2F%2Fwake-treehacks.herokuapp.com%2Fsmartthings"
 
 		@url = "https://graph.api.smartthings.com/oauth/token?grant_type=authorization_code&client_id=#{client_id}&client_secret=#{client_secret}&redirect_uri=#{redirect_encoded}&scope=app&code=#{auth_code}"
