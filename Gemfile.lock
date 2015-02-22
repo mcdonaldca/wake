@@ -56,8 +56,11 @@ GEM
     debugger-linecache (1.2.0)
     erubis (2.7.0)
     execjs (2.3.0)
+    fitgem (0.10.0)
+      oauth
     globalid (0.3.3)
       activesupport (>= 4.1.0)
+    hashie (3.4.0)
     hike (1.2.3)
     i18n (0.7.0)
     jbuilder (2.2.7)
@@ -77,8 +80,19 @@ GEM
     mini_portile (0.6.2)
     minitest (5.5.1)
     multi_json (1.10.1)
+    multi_xml (0.5.5)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
+    oauth (0.4.7)
+    omniauth (1.2.2)
+      hashie (>= 1.2, < 4)
+      rack (~> 1.0)
+    omniauth-fitbit (1.0.4)
+      multi_xml
+      omniauth-oauth (~> 1.0)
+    omniauth-oauth (1.0.1)
+      oauth
+      omniauth (~> 1.0)
     pg (0.18.1)
     rack (1.6.0)
     rack-test (0.6.3)
@@ -114,6 +128,7 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rake (10.4.2)
     rdoc (4.2.0)
+    ruby-hmac (0.4.0)
     rufus-scheduler (3.0.9)
       tzinfo
     sass (3.4.12)
@@ -161,11 +176,14 @@ PLATFORMS
 DEPENDENCIES
   byebug
   coffee-rails (~> 4.1.0)
+  fitgem
   jbuilder (~> 2.0)
   jquery-rails
+  omniauth-fitbit
   pg
   rails (= 4.2.0)
   rails_12factor
+  ruby-hmac
   rufus-scheduler (= 3.0.9)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)

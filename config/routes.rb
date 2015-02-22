@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  get   '/login', :to => 'sessions#new', :as => :login
+  #match '/auth/:provider/callback', :to => 'sessions#create'
+  #match '/auth/failure', :to => 'sessions#failure'
 
   root 'main#index'
   get 'select' => 'main#select', :as => 'select'
@@ -17,11 +20,13 @@ Rails.application.routes.draw do
 
   get 'smartthings_auth' => 'main#smartthings_auth', :as => "smartthings_auth"
   get 'smartthings' => 'main#smartthings', :as => "smartthings"
+  post 'fibit_auth' => 'main#fitbit_auth', :as => "fitbit_auth"
 
   get 'asleep' => 'main#asleep', :as => 'asleep'
   get 'reset' => 'main#reset', :as => 'reset'
   get 'pebble_nod' => 'main#pebble_nod', :as => 'pebble_nod'
   get 'pebble_button' => 'main#pebble_button', :as => 'pebble_button'
   get 'fitbit_sleep' => 'main#fitbit_sleep', :as => 'fitbit_sleep'
+
 
 end

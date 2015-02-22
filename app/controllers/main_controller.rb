@@ -31,14 +31,62 @@ class MainController < ApplicationController
 		@sleep_watch = user.sleep_watch
 		@graphic = false
 
-		@smartthings_check_1 = user.smartthings_access_token
-		@smartthings_check_2 = user.smartthings_api_endpoint
-		@directv_check = user.directv_ip
-
 		# Send them back to select stage if they tried to skip it
 		if not ["sir", "ma'am", "boss"].include? @name
 			redirect_to select_url
 		end
+
+		require 'net/http'
+		require 'securerandom'
+
+		timestamp = Time.zone.now.to_i
+		nonce = SecureRandom.hex()
+		entries = ERB::Util.url_encode("oauth_consumer_key=33a270b7f4c947d7bc55190efbce9386&oauth_nonce=#{nonce}&oauth_signature_method=HMAC-SHA1&oauth_timestamp=#{timestamp}&oauth_version=1.0")
+		data = "POST&https%3A%2F%2Fapi.fitbit.com%2Foauth%2Frequest_token&" + entries
+		key = ERB::Util.url_encode('e21d95d6d6144bf48e1a4252eb0a38be') + "&"
+
+		require 'base64'
+		require 'rubygems' # not necessary with ruby 1.9 but included for completeness 
+		require 'hmac-sha1'
+
+		hmac = Base64.encode64((HMAC::SHA1.new(key) << data).digest).strip
+
+		uri = URI("https://api.fitbit.com/oauth/request_token")
+		https = Net::HTTP.new(uri.host, uri.port)
+		https.use_ssl = true
+
+		request = Net::HTTP::Post.new(uri.path)
+
+		request["oauth_callback"] = 'http%3A%2F%2Fwake-treehacks.herokuapp.com%2Ffitbit_auth'
+		request["Authorization: OAuth oauth_consumer_key"] = '33a270b7f4c947d7bc55190efbce9386'
+		request["oauth_consumer_key"] = '33a270b7f4c947d7bc55190efbce9386'
+		request["oauth_nonce"] = nonce
+		request["oauth_signature"] = hmac
+		request["oauth_signature_method"] = 'HMAC-SHA1'
+		request["oauth_timestamp"] = timestamp
+		request["oauth_version"] = '1.0'
+
+		request.set_form_data(
+			'oauth_callback' => 'http%3A%2F%2Fwake-treehacks.herokuapp.com%2Ffitbit_auth',
+			'oauth_consumer_key' => '33a270b7f4c947d7bc55190efbce9386',
+			'oauth_nonce' => nonce,
+			'oauth_signature' => hmac,
+			'oauth_signature_method' => 'HMAC-SHA1',
+			'oauth_timestamp' => timestamp
+			)
+
+		response = https.request(request).body
+		#fitbit_oauth_token = JSON.parse
+		user.fitbit_oauth_token = "5b3d70b2eee2c19c3be6b039d5550e2c"
+		user.fitbit_oauth_secret = "353578d28f3a5219428fca77f3a955e7"
+		user.save
+		
+		@url = "https://www.fitbit.com/oauth/authenticate?oauth_token=#{user.fitbit_oauth_token}"
+		@smartthings_check_1 = user.smartthings_access_token
+		@smartthings_check_2 = user.smartthings_api_endpoint
+		@directv_check = user.directv_ip
+		@fitbit_check_1 = user.fitbit_oauth_token
+		@fitbit_check_2 = user.fitbit_oauth_secret
 	end
 
 	# Displays specific sleep watch settings
@@ -139,10 +187,10 @@ class MainController < ApplicationController
 	def pebble_button
 		user = User.find 0
 
-		if user.sleep != 0
+		#if user.sleep != 0
 			user.sleep = 0
 			user.save()
-		end
+		#end
 
 		require "json"
 		my_hash = {:SUCCESS => 1}
@@ -292,7 +340,7 @@ class MainController < ApplicationController
 
 	def fitbit_auth
 
-		redirect_to dashboard_url
+		
 	end
 
 	def smartthings_auth
@@ -317,6 +365,10 @@ class MainController < ApplicationController
 		redirect_to dashboard_url
 	end
 
+	def fitbit_auth
+		@req = params
+	end
+
   ################################
 	#                              #
 	#  Reset                       #
@@ -331,6 +383,8 @@ class MainController < ApplicationController
 		user.smartthings_access_token = nil
 		user.smartthings_api_endpoint = nil
 		user.directv_ip = "68.65.171.134"
+		user.fitbit_oauth_token = nil
+		user.fitbit_oauth_secret = nil
 		user.aural = 1
 		user.pebble_loc = "wrist"
 		user.save()

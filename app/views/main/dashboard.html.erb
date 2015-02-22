@@ -1,5 +1,7 @@
 <h1>dashboard</h1>
-<h2 class="subtitle">Let us know what you need, <%= @name %></h2>
+<h2 class="subtitle">let us know what you need, <%= @name %></h2>
+
+<p><%= @response %></p>
 
 <div class="button-container">
 	<%= link_to sleep_watch_url, :class => "button" do %>
@@ -24,10 +26,15 @@
 <div class="connections">
 	<h3>integrations</h3>
 	<div class="button-container">
-		<a href="" class="button">
+		<a href="<%= @url %>" class="button">
 			fitbit
-			<div class="light red">
-			</div>
+			<% if !@fitbit_check_1.nil? and !@fitbit_check_2.nil? %>
+				<div class="light green">
+				</div>
+			<% else %>
+				<div class="light red">
+				</div>
+			<% end %>
 		</a>
 	</div>
 	<div class="button-container">
@@ -67,6 +74,9 @@
 <div class="bottom-security left">
 	<%= image_tag "security_5.png" %>
 </div>
+
+
+
 
 <script>
 $(window).bind("load", function() {
