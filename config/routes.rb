@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 
   get 'smartthings_auth' => 'main#smartthings_auth', :as => "smartthings_auth"
   get 'smartthings' => 'main#smartthings', :as => "smartthings"
-  post 'fibit_auth' => 'main#fitbit_auth', :as => "fitbit_auth"
+  post 'fibit_auth' => 'main#fitbit_auth'
   get 'fibit_auth' => 'main#fitbit_auth', :as => "fitbit_auth"
   get 'calendar_redirect' => 'main#calendar_redirect', :as => "calendar_redirect"
   get 'calendar_callback' => 'main#calendar_callback', :as => "calendar_callback"
