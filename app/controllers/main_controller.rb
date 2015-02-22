@@ -1,5 +1,6 @@
 class MainController < ApplicationController
 
+  # Start page
 	def index
 		@graphic = true
 		@graphic_name = "security_1.png"
@@ -8,36 +9,100 @@ class MainController < ApplicationController
 		user.save()
 	end
 
+	# Choose your name!
 	def select
 		@graphic = true
 		@graphic_name = "security_1.png"
 	end
 
+  # Associate name with user, head to dashboard
 	def identity
-
 		user = User.find 0
 		user.name = params["name"]
 		user.save()
 		redirect_to dashboard_url
 	end
 
+  # Displays overall info
 	def dashboard
-
-		@graphic = false
-
 		user = User.find 0
+
 		@name = user.name
 		@sleep_watch = user.sleep_watch
+		@graphic = false
 
 		@smartthings_check_1 = user.smartthings_access_token
 		@smartthings_check_2 = user.smartthings_api_endpoint
 		@directv_check = user.directv_ip
 
+		# Send them back to select stage if they tried to skip it
 		if not ["sir", "ma'am", "boss"].include? @name
 			redirect_to select_url
 		end
-
 	end
+
+	# Displays specific sleep watch settings
+	def sleep_watch
+		user = User.find 0
+
+		@name = user.name
+		@sleep_watch = user.sleep_watch
+		@aural = user.aural
+		@pebble_loc = user.pebble_loc
+	end
+
+	# Sets the state of sleep watch
+	def set_sleep_watch
+		mode = params["mode"]
+		user = User.find 0
+
+		if mode == "green"
+			user.sleep_watch = 2
+		elsif mode == "yellow"
+			user.sleep_watch = 1
+		else
+			user.sleep_watch = 0
+		end
+
+		user.save()
+		redirect_to sleep_watch_url
+	end
+
+	# Set the state of aural alarms
+	def set_aural
+		mode = params["mode"]
+		user = User.find 0
+
+		if mode == "off"
+			user.aural = 0
+		else 
+			user.aural = 1
+		end
+
+		user.save()
+		redirect_to sleep_watch_url
+	end
+
+	# Set the state of the pebble location
+	def set_pebble_loc
+		loc = params["loc"]
+		user = User.find 0
+
+		if loc == "head"
+			user.pebble_loc = loc
+		else
+			user.pebble_loc = "wrist"
+		end
+
+		user.save()
+		redirect_to sleep_watch_url
+	end
+
+	################################
+	#                              #
+	#  Simple API                  #
+	#                              #
+	################################
 
 	def asleep
 		require 'json'
@@ -88,62 +153,11 @@ class MainController < ApplicationController
 		render json: @success
 	end
 
-	def sleep_watch
-
-		user = User.find 0
-		@name = user.name
-		@sleep_watch = user.sleep_watch
-		@aural = user.aural
-		@pebble_loc = user.pebble_loc
-
-	end
-
-	def set_sleep_watch
-		mode = params["mode"]
-		user = User.find 0
-
-		if mode == "green"
-			user.sleep_watch = 2
-		elsif mode == "yellow"
-			user.sleep_watch = 1
-		else
-			user.sleep_watch = 0
-		end
-
-		user.save()
-
-		redirect_to sleep_watch_url
-	end
-
-	def set_aural
-		mode = params["mode"]
-		user = User.find 0
-
-		if mode == "off"
-			user.aural = 0
-		else 
-			user.aural = 1
-		end
-
-		user.save()
-
-		redirect_to sleep_watch_url
-	end
-
-	def set_pebble_loc
-		loc = params["loc"]
-		user = User.find 0
-
-		if loc == "head"
-			user.pebble_loc = loc
-		else
-			user.pebble_loc = "wrist"
-		end
-
-		user.save()
-
-		redirect_to sleep_watch_url
-	end
+	################################
+	#                              #
+	#  Modular Sleep Handlers      #
+	#                              #
+	################################
 
 	def make_sound
 
@@ -169,8 +183,8 @@ class MainController < ApplicationController
 		 
 	end
 
+  # 
 	def phone_answered 
-
 		user = User.find 0
 
 		if user.sleep != 0
@@ -180,28 +194,38 @@ class MainController < ApplicationController
 
 	end
 
+  # Check the television to see if it needs to be paused
 	def handle_television
-
-		start = get_offset()
+		start = get_offset
 		
+		# Check offset again 1 second later
 		job_id =
       Rufus::Scheduler.singleton.in '1s' do
-      	finish = get_offset()
+      	finish = get_offset
 
+      	# If the offsets are different, pause whatever is playing
         if start != finish
-		    	response = Net::HTTP.get(URI("http://10.19.188.238:8080/remote/processKey?key=pause"))
+        	response = Net::HTTP.get(URI("http://68.65.171.134:8080/remote/processKey?key=pause"))
+		    	#response = Net::HTTP.get(URI("http://10.19.188.238:8080/remote/processKey?key=pause"))
 		    end
       end
 
 	end
 
+  # Find the user's current location in the movie
+	def get_offset
+		response = Net::HTTP.get_response(URI("http://68.65.171.134:8080/tv/getTuned")).body
+		return JSON.parse(response)["offset"]
+	end
+
+  # If we're connected to the smart home, turn off the light
 	def handle_home 
 		require 'net/http'
 
 		user = User.find 0
 
+		# Make sure we have the necessary tokens
 		unless user.smartthings_api_endpoint.nil? or user.smartthings_access_token.nil?		
-
 			uri = URI(user.smartthings_api_endpoint + "/switch/off")
 			req = Net::HTTP::Post.new(uri)
 			req.content_type = 'application/json'
@@ -210,23 +234,18 @@ class MainController < ApplicationController
 			http = Net::HTTP.new(uri.host, uri.port)
 			http.use_ssl = true
 			response = http.request(req)
-
-		end
-
-		redirect_to dashboard_url		
+		end	
 	end
 
-	def get_offset
-
-		response = Net::HTTP.get_response(URI("http://10.19.188.238:8080/tv/getTuned")).body
-		return JSON.parse(response)["offset"]
-
-	end
+  ################################
+	#                              #
+	#  Auth Handling               #
+	#                              #
+	################################
 
 	def fitbit_auth
 
 		redirect_to dashboard_url
-
 	end
 
 	def smartthings_auth
@@ -250,6 +269,12 @@ class MainController < ApplicationController
 
 		redirect_to dashboard_url
 	end
+
+  ################################
+	#                              #
+	#  Reset                       #
+	#                              #
+	################################
 
 	def reset
 		user = User.find 0
