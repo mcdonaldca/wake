@@ -36,6 +36,12 @@ class MainController < ApplicationController
 			redirect_to select_url
 		end
 
+		@smartthings_check_1 = user.smartthings_access_token
+		@smartthings_check_2 = user.smartthings_api_endpoint
+		@directv_check = user.directv_ip
+		@fitbit_check_1 = user.fitbit_oauth_token
+		@fitbit_check_2 = user.fitbit_oauth_secret
+
 		require 'net/http'
 		require 'securerandom'
 
@@ -79,14 +85,10 @@ class MainController < ApplicationController
 		#fitbit_oauth_token = JSON.parse
 		user.fitbit_oauth_token = "5b3d70b2eee2c19c3be6b039d5550e2c"
 		user.fitbit_oauth_secret = "353578d28f3a5219428fca77f3a955e7"
-		user.save
+		user.save()
 		
 		@url = "https://www.fitbit.com/oauth/authenticate?oauth_token=#{user.fitbit_oauth_token}"
-		@smartthings_check_1 = user.smartthings_access_token
-		@smartthings_check_2 = user.smartthings_api_endpoint
-		@directv_check = user.directv_ip
-		@fitbit_check_1 = user.fitbit_oauth_token
-		@fitbit_check_2 = user.fitbit_oauth_secret
+		
 	end
 
 	# Displays specific sleep watch settings
