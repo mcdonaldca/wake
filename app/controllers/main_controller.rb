@@ -365,9 +365,10 @@ class MainController < ApplicationController
 
 
 	def fitbit_auth
-		@req = params
+		@stuff = params
 
-		req = Net::HTTP::Post.new(URI("https://www.fitbit.com/oauth/oauth_allow"))
+		uri = URI("https://www.fitbit.com/oauth/oauth_allow")
+		req = Net::HTTP::Post.new(uri)
 		http = Net::HTTP.new(uri.host, uri.port)
 		http.use_ssl = true
 		@response = http.request(req).body
