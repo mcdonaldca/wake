@@ -4,32 +4,34 @@
 
 <div class="button-container">
 	<%= link_to sleep_watch_url, :class => "button" do %>
-	  sleep watch is
+	  
 	  <% if @sleep_watch == 1 || @sleep_watch == 2 %>
-		  on
-		  <div class="light green">
+		  <div class="light green right">
 			</div>
-		<% else %>
-		  off
-		  <div class="light red">
-			</div>	
+			sleep watch is on
+		<% else %> 
+		  <div class="light red right">
+			</div>
+			 sleep watch is off	
 		<% end %>
 	<% end %>
 </div>
 
 <div class="connections">
+	<h3>Integrations</h3>
 	<div class="button-container">
 		<a href="" class="button">
-			<div class="light red right">
-			</div>
 			google calendar
+			<div class="light red">
+			</div>
 		</a>
 	</div>
 	<div class="button-container">
 		<a href="https://graph.api.smartthings.com/oauth/authorize?response_type=code&client_id=627d1e37-7ac3-4368-8a28-4028570bc3a9&scope=app&redirect_uri=http%3A%2F%2Fwake-treehacks.herokuapp.com%2Fsmartthings_auth" class="button">
-			<div class="light red right">
+			smart home
+			<div class="light red">
 			</div>
-			smart home</a>
+		</a>
 	</div>
 	
 </div>

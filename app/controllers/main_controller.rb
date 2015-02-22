@@ -164,6 +164,7 @@ class MainController < ApplicationController
 
 		response = Net::HTTP.get_response(URI(@url)).body
 		@access_token = JSON.parse(response)["access_token"]
+		@access_token = "74908302-2807-4c45-8edb-02ff65696205"
 
 	end
 
