@@ -155,7 +155,10 @@ class MainController < ApplicationController
 
 	def smartthings_auth
 
-		@code = params["code"]
+		auth_code = params["code"]
+
+		@url = "https://graph.api.smartthings.com/oauth/token?grant_type=#{auth_code}&client_id=myclient&client_secret=mysecret&redirect_uri=https%3A%2F%2Fgraph.api.smartthings.com%2Foauth%2Fcallback&scope=app&code=XXXXX"
+
 	end
 
 end
