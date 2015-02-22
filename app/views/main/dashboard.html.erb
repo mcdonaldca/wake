@@ -43,11 +43,11 @@
 		</a>
 	</div>
 	<div class="button-container">
-		<a href="" class="button">
+		<%= link_to calendar_redirect_url, :class => "button" do %>
 			google calendar
 			<div class="light red">
 			</div>
-		</a>
+		<% end %>
 	</div>
 	<div class="button-container">
 		<a href="https://graph.api.smartthings.com/oauth/authorize?response_type=code&client_id=627d1e37-7ac3-4368-8a28-4028570bc3a9&scope=app&redirect_uri=http%3A%2F%2Fwake-treehacks.herokuapp.com%2Fsmartthings_auth" class="button">

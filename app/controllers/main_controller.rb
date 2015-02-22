@@ -317,6 +317,84 @@ class MainController < ApplicationController
 		redirect_to dashboard_url
 	end
 
+	def calendar_redirect
+		google_api_client = Google::APIClient.new({
+			application_name: 'Example Ruby application',
+			application_version: '1.0.0'
+		})
+
+		google_api_client.authorization = Signet::OAuth2::Client.new({
+			client_id: "737578715855-p1d4g7uf52jra0c9gtcff0imf96ded5p.apps.googleusercontent.com",
+			client_secret: "dfb4sokyRDYj1gKTMh-GsXtR",	
+			authorization_uri: 'https://accounts.google.com/o/oauth2/auth',
+			scope: 'https://www.googleapis.com/auth/calendar.readonly',
+			redirect_uri: url_for(:action => :calendar_callback)
+		})
+
+		authorization_uri = google_api_client.authorization.authorization_uri
+
+		redirect_to authorization_uri.to_s
+	end
+
+	def calendar_callback
+		google_api_client = Google::APIClient.new({
+	    	application_name: 'Example Ruby application',
+	    	application_version: '1.0.0'
+	  	})
+
+		google_api_client.authorization = Signet::OAuth2::Client.new({
+	    	client_id: "737578715855-p1d4g7uf52jra0c9gtcff0imf96ded5p.apps.googleusercontent.com",
+	    	client_secret: "dfb4sokyRDYj1gKTMh-GsXtR",
+	    	token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
+	    	redirect_uri: url_for(:action => :calendar_callback),
+	    	code: params[:code]
+	  	})
+
+	  	response = google_api_client.authorization.fetch_access_token!
+
+	  	session[:access_token] = response['access_token']
+
+	  	redirect_to url_for(:action => :calendar_fetch)
+	end
+
+	def calendar_fetch
+	  	google_api_client = Google::APIClient.new({
+	    	application_name: 'Example Ruby application',
+	    	application_version: '1.0.0'
+	  	})
+
+	  	google_api_client.authorization = Signet::OAuth2::Client.new({
+	    	client_id: "737578715855-p1d4g7uf52jra0c9gtcff0imf96ded5p.apps.googleusercontent.com",
+	    	client_secret: "dfb4sokyRDYj1gKTMh-GsXtR",	
+	    	access_token: session[:access_token]
+	  	})
+
+	  	google_calendar_api = google_api_client.discovered_api('calendar', 'v3')
+
+	  	response = google_api_client.execute({
+	    	api_method: google_calendar_api.calendar_list.list,
+	    	parameters: {}
+	  	})
+
+	  	@items = response.data['items']
+
+	  	@item_ids = []
+	  	@items.each do |item|
+	  		@item_ids.push(item.id)
+	  	end
+	  	response = google_api_client.execute({
+	  			api_method: google_calendar_api.freebusy.query,
+	  			parameters: {
+	  				timeMin: Time.zone.now - 1.minute,
+	  				timeMax: Time.zone.now + 10.minute,
+	  				timeZone: Time.zone,
+	  				groupExpansionMax: 75,
+	  				items: @item_ids
+	  		}})
+	  	
+	  	render json: response
+	end
+
   ################################
 	#                              #
 	#  Reset                       #

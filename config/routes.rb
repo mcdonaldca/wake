@@ -17,6 +17,9 @@ Rails.application.routes.draw do
 
   get 'smartthings_auth' => 'main#smartthings_auth', :as => "smartthings_auth"
   get 'smartthings' => 'main#smartthings', :as => "smartthings"
+  get 'calendar_redirect' => 'main#calendar_redirect', :as => "calendar_redirect"
+  get 'calendar_callback' => 'main#calendar_callback', :as => "calendar_callback"
+  get 'calendar_fetch' => 'main#calendar_fetch', :as => "calendar_fetch"
 
   get 'asleep' => 'main#asleep', :as => 'asleep'
   get 'reset' => 'main#reset', :as => 'reset'
