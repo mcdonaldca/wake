@@ -42,7 +42,8 @@ class MainController < ApplicationController
 		@fitbit_check_1 = user.fitbit_oauth_token
 		@fitbit_check_2 = user.fitbit_oauth_secret
 
-		require 'net/http'
+=begin
+    require 'net/http'
 		require 'securerandom'
 
 		timestamp = Time.zone.now.to_i
@@ -82,9 +83,9 @@ class MainController < ApplicationController
 			)
 
 		response = https.request(request).body
-		#fitbit_oauth_token = JSON.parse
-		user.fitbit_oauth_token = "2cfa2fdd547c6e195452af56dc2a79bf"
-		user.fitbit_oauth_secret = "aafd0c1a7ef3798a5e6bb465a164b448"
+=end
+		user.fitbit_oauth_token = "31be8926b3df335f601bf3229f90bb69"
+		user.fitbit_oauth_secret = "ef1ed49b25e243c4082fec636edbec3b"
 		user.save()
 		
 		@url = "https://www.fitbit.com/oauth/authenticate?oauth_token=" + user.fitbit_oauth_token
@@ -365,6 +366,12 @@ class MainController < ApplicationController
 
 	def fitbit_auth
 		@req = params
+
+		req = Net::HTTP::Post.new(URI("https://www.fitbit.com/oauth/oauth_allow"))
+		http = Net::HTTP.new(uri.host, uri.port)
+		http.use_ssl = true
+		@response = http.request(req).body
+
 	end
 
 	def calendar_redirect
