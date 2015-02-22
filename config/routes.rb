@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get 'sleep_watch' => 'main#sleep_watch', :as => 'sleep_watch'
 
   get 'handle_television' => 'main#handle_television', :as => 'handle_television'
+  get 'handle_home' => 'main#handle_home', :as => 'handle_home'
   get 'make_sound' => 'main#make_sound', :as => 'make_sound'
   get 'phone_answered' => 'main#phone_answered', :as => 'phone_answered'
 

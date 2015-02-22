@@ -153,6 +153,8 @@ class MainController < ApplicationController
 		req.content_type = 'application/json'
 		req.authorization = 'Bearer ' + user.smartthings_access_token
 		http.request(req)
+
+		redirect_to dashboard_url
 	end
 
 	def get_offset
