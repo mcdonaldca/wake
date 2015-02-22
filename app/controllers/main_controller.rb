@@ -108,7 +108,7 @@ class MainController < ApplicationController
 	# TODO: rename asleep to awaken
 	def asleep
 		user = User.find 0
-		Rails.logger.info "herro, perbble #{user.sleep}"
+		
 		# TODO: rename SLEEP to BUZZ
 		require "json"
 		my_hash = {:SLEEP => user.sleep}
@@ -189,9 +189,7 @@ class MainController < ApplicationController
 
 		# If user isn't in a meeting & isn't driving
 		# Check if they have sleep watch turned off
-		Rails.logger.info user.sleep_watch
 		if user.sleep_watch == 0
-			Rails.logger.info "callin thangs"
 			handle_television
 			handle_home
 			return false
