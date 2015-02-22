@@ -144,6 +144,17 @@ class MainController < ApplicationController
 
 	end
 
+	def handle_home 
+		require 'net/http'
+
+		user = User.find 0
+
+		req = Net::HTTP::Post.new(URI(user.smartthings_api_endpoint + "/switch/on"))
+		req.content_type = 'application/json'
+		req.authorization = 'Bearer ' + user.smartthings_access_token
+		http.request(req)
+	end
+
 	def get_offset
 
 		response = Net::HTTP.get_response(URI("http://10.19.188.238:8080/tv/getTuned")).body
