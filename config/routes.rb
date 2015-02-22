@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   get 'make_sound' => 'main#make_sound', :as => 'make_sound'
   get 'phone_answered' => 'main#phone_answered', :as => 'phone_answered'
 
+  get 'smartthings_auth' => 'main#smartthings_auth', :as => "smartthings_auth"
+
   get 'asleep' => 'main#asleep', :as => 'asleep'
   get 'reset' => 'main#reset', :as => 'reset'
   get 'pebble_nod' => 'main#pebble_nod', :as => 'pebble_nod'

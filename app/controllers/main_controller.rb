@@ -114,7 +114,7 @@ class MainController < ApplicationController
 			:to => '+19894883855', 
 			:from => '+19899410565', 
 			:url => 'http://wake-treehacks.herokuapp.com/phone_answered',  
-			:method => 'POST',  
+			:method => 'GET',  
 			:fallback_method => 'GET',  
 			:status_callback_method => 'GET',    
 			:record => 'false'
@@ -132,17 +132,17 @@ class MainController < ApplicationController
 
 	def handle_television
 
-		#start = get_offset()
-		response = Net::HTTP.get(URI("http://10.19.188.238:8080/remote/processKey?key=pause"))
+		start = get_offset()
+		
 
-		#job_id =
-    #  Rufus::Scheduler.singleton.in '1s' do
-    #  	finish = get_offset()
+		job_id =
+      Rufus::Scheduler.singleton.in '1s' do
+      	finish = get_offset()
 
-#        if start != finish
-#		    	response = Net::HTTP.get(URI("http://10.19.188.238:8080/remote/processKey?key=pause"))
-#		    end
- #     end
+        if start != finish
+		    	response = Net::HTTP.get(URI("http://10.19.188.238:8080/remote/processKey?key=pause"))
+		    end
+      end
 
 	end
 
@@ -153,14 +153,9 @@ class MainController < ApplicationController
 
 	end
 
-	def test
+	def smartthings_auth
 
-    job_id =
-      Rufus::Scheduler.singleton.in '5s' do
-        Rails.logger.info "time flies, it's now #{Time.now}"
-      end
-
-    render :text => "scheduled job #{job_id}"
-  end
+		@code = params["code"]
+	end
 
 end
