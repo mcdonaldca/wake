@@ -108,8 +108,9 @@ class MainController < ApplicationController
 	# TODO: rename asleep to awaken
 	def asleep
 		user = User.find 0
-
+		Rails.logger.info "herro, perbble #{user.sleep}"
 		# TODO: rename SLEEP to BUZZ
+		require "json"
 		my_hash = {:SLEEP => user.sleep}
 		@wake = JSON.generate(my_hash)
 		render json: @wake
@@ -118,13 +119,20 @@ class MainController < ApplicationController
 
 	# Pebble pings this when it detects a nod
 	def pebble_nod
+		require "json"
 		user = User.find 0
 
 		if user.pebble_loc != "wrist" and should_wake 
 			user.sleep = 1
 			user.save()
 			sleep_detected
+			my_hash = {:SUCCESS => 1}
+		else
+			my_hash = {:SUCCESS => 0}
 		end
+
+		@wake = JSON.generate(my_hash)
+		render json: @wake
 	end
 
 	# Pebble pings this when the vibration alarm is silenced
@@ -135,6 +143,11 @@ class MainController < ApplicationController
 			user.sleep = 0
 			user.save()
 		end
+
+		require "json"
+		my_hash = {:SUCCESS => 1}
+		@wake = JSON.generate(my_hash)
+		render json: @wake
 	end
 
 	# FitBit pings this when it detects user sleep
@@ -146,6 +159,11 @@ class MainController < ApplicationController
 			user.save()
 			sleep_detected
 		end
+
+		require "json"
+		my_hash = {:SUCCESS => 1}
+		@wake = JSON.generate(my_hash)
+		render json: @wake
 	end
 
 	################################
@@ -157,8 +175,7 @@ class MainController < ApplicationController
 	# If the user has fallen asleep
 	def sleep_detected
 		user = User.find 0
-
-		if user.aural == "on"
+		if user.aural == 1
 			make_sound
 		end
 	end
@@ -172,7 +189,9 @@ class MainController < ApplicationController
 
 		# If user isn't in a meeting & isn't driving
 		# Check if they have sleep watch turned off
+		Rails.logger.info user.sleep_watch
 		if user.sleep_watch == 0
+			Rails.logger.info "callin thangs"
 			handle_television
 			handle_home
 			return false
@@ -184,7 +203,7 @@ class MainController < ApplicationController
 		if user.sleep_watch == 1
 			handle_television
 			job_id =
-	      Rufus::Scheduler.singleton.in '27m' do
+	      Rufus::Scheduler.singleton.in '27s' do
 	      	user.sleep = 1
 	      	user.save()
 	      	sleep_detected
@@ -201,11 +220,10 @@ class MainController < ApplicationController
 
 		require 'rubygems' # not necessary with ruby 1.9 but included for completeness 
 		require 'twilio-ruby' 
-		 
 		# put your own credentials here 
 		account_sid = 'AC77847336a48c6aa58c4f1c0e7cbf67ae' 
 		auth_token = '846b1a6d20f408b88b3a4d78a8604431' 
-		 
+		
 		# set up a client to talk to the Twilio REST API 
 		@client = Twilio::REST::Client.new account_sid, auth_token 
 		 
