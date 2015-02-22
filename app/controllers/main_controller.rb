@@ -149,10 +149,14 @@ class MainController < ApplicationController
 
 		user = User.find 0
 
-		req = Net::HTTP::Post.new(URI(user.smartthings_api_endpoint + "/switch/on"))
+		uri = URI(user.smartthings_api_endpoint + "/switch/off")
+		req = Net::HTTP::Post.new(uri)
 		req.content_type = 'application/json'
-		req.authorization = 'Bearer ' + user.smartthings_access_token
-		http.request(req)
+		req.add_field("authorization", 'Bearer ' + user.smartthings_access_token)
+
+		http = Net::HTTP.new(uri.host, uri.port)
+		http.use_ssl = true
+		response = http.request(req)
 
 		redirect_to dashboard_url
 	end
@@ -172,14 +176,14 @@ class MainController < ApplicationController
 
 	def smartthings_auth
 
-		#auth_code = params["code"]
-		#client_id = "627d1e37-7ac3-4368-8a28-4028570bc3a9"
-		#client_secret = "1b4cfc4b-20b4-4cff-a424-0254b325c1b9"
-		#redirect_encoded = "http%3A%2F%2Fwake-treehacks.herokuapp.com%2Fsmartthings"
+		auth_code = params["code"]
+		client_id = "627d1e37-7ac3-4368-8a28-4028570bc3a9"
+		client_secret = "1b4cfc4b-20b4-4cff-a424-0254b325c1b9"
+		redirect_encoded = "http%3A%2F%2Fwake-treehacks.herokuapp.com%2Fsmartthings"
 
-		#url = "https://graph.api.smartthings.com/oauth/token?grant_type=authorization_code&client_id=#{client_id}&client_secret=#{client_secret}&redirect_uri=https%3A%2F%2Fgraph.api.smartthings.com%2Foauth%2Fcallback&scope=app&code=#{auth_code}"
+		url = "https://graph.api.smartthings.com/oauth/token?grant_type=authorization_code&client_id=#{client_id}&client_secret=#{client_secret}&redirect_uri=https%3A%2F%2Fgraph.api.smartthings.com%2Foauth%2Fcallback&scope=app&code=#{auth_code}"
 
-		#response = Net::HTTP.get_response(URI(@url)).body
+		response = Net::HTTP.get_response(URI(url)).body
 		#access_token = JSON.parse(response)["access_token"]
 		access_token = "22853c41-2f0d-4c0a-bb50-0dc2ff1c84a8"
 		api_endpoint = "https://graph.api.smartthings.com/api/smartapps/installations/bfc3f42a-835e-4082-b88f-abb1d8ce5e83"
